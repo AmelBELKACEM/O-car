@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Form\CarType;
 use App\Repository\CarRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,33 @@ class CarController extends AbstractController
            'form' => $form,
         ]);
     
+    }
+
+     /**
+     * Delete entity
+     * 
+     * @Route("/car/delete/{id<\d+>}", name="app_car_delete")
+     */
+    public function delete(int $id, CarRepository $carRepository, ManagerRegistry $doctrine)
+    {
+        // on va chercher l'entité dans la base grâce au Repository de l'entité
+        $car = $carRepository->find($id);
+        //dump($car);
+
+        // 404 ?
+        if ($car === null) {
+            throw $this->createNotFoundException('car non trouvé.');
+        }
+
+        // on la supprime
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($car);
+        // on flush directement : PAS de persist ! ()
+        $entityManager->flush();
+
+       
+          // on redirige vers la page home
+       return $this->redirectToRoute('app_car');
     }
 
 }

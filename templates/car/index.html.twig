@@ -33,7 +33,7 @@
                 <td>{{car.brand.name}}</td>
                 <td>
                     <a href="" class="btn btn-sm btn-success">Détails</a>
-                    <a href="" class="btn btn-sm btn-danger">Supprimer</a>
+                    <a href="{{path('app_car_delete', {id: car.id})}}" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?');">Supprimer</a>
                 </td>
             </tr>
        {% endfor %}

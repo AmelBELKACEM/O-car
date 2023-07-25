@@ -3,6 +3,7 @@
 {% block title %}Ajouter une voiture{% endblock %}
 
 {% block body %}
+<div class="container-xl bg-light p-5 border-top">
 <h1>Ajouter une critique</h1>
 
 {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'review-form'}}) }}
@@ -15,4 +16,5 @@
 
     {# fermeture de balise form #}
 {{ form_end(form) }}
+</div>
 {% endblock %}
