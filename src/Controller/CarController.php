@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Form\CarType;
 use App\Repository\CarRepository;
+use App\Repository\BrandRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,17 +15,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CarController extends AbstractController
 {
     /**
+     * List Entity
      * @Route("/", name="app_car")
      */
     public function index(CarRepository $carRepository): Response
     {
         $cars = $carRepository->findAll();
+        
         return $this->render('car/index.html.twig', [
-            'cars'=>$cars
+            'cars' => $cars
         ]);
     }
 
     /**
+     * Add Entity
      * @Route("/add", name="app_car_add", methods={"GET", "POST"})
      */
     public function add(Request $request, CarRepository $carRepository): Response
@@ -34,8 +38,8 @@ class CarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        
-        
+
+
             // au sauvegarde l'entité
             $carRepository->add($car, true);
 
@@ -43,17 +47,16 @@ class CarController extends AbstractController
             return $this->redirectToRoute('app_car');
         }
         return $this->renderForm('car/add.html.twig', [
-           'car' => $car,
-           // pour afficher le form
-           'form' => $form,
+            'car' => $car,
+            // pour afficher le form
+            'form' => $form,
         ]);
-    
     }
 
-     /**
+    /**
      * Delete entity
      * 
-     * @Route("/car/delete/{id<\d+>}", name="app_car_delete")
+     * @Route("/car/delete/{id<\d+>}", name="app_car_delete", methods={"GET"},)
      */
     public function delete(int $id, CarRepository $carRepository, ManagerRegistry $doctrine)
     {
@@ -72,9 +75,11 @@ class CarController extends AbstractController
         // on flush directement : PAS de persist ! ()
         $entityManager->flush();
 
-       
-          // on redirige vers la page home
-       return $this->redirectToRoute('app_car');
+
+        // on redirige vers la page home
+        return $this->redirectToRoute('app_car');
     }
 
+
+    
 }

@@ -36,7 +36,7 @@ class Car
     private $color;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      * @Assert\NotBlank
      */
     private $createdAt;

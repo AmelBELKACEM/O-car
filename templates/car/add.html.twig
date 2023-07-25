@@ -4,7 +4,8 @@
 
 {% block body %}
 <div class="container-xl bg-light p-5 border-top">
-<h1>Ajouter une critique</h1>
+<a href="{{ path('app_car') }}" class="btn btn-sm btn-primary">Retour a la List </a>
+<h1 class='text-center'>Ajouter une voiture</h1>
 
 {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'review-form'}}) }}
 

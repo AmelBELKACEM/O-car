@@ -38,6 +38,16 @@ class CarRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function listCarsByBrand(int $brand)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.brand = :val')
+            ->setParameter('val', $brand)
+            ->orderBy('m.id', 'ASC')
+            ->setMaxResults(30)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Car[] Returns an array of Car objects
