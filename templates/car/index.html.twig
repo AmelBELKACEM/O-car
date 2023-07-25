@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}O'Car
+{% endblock %}
+
+{% block body %}
+	<div class="container-xl bg-light p-5 border-top">
+
+		
+        
+
+            <h2 class="text-muted text-center fw-bold mb-4">Les voitures</h2>
+<a href="{{ path('app_car_add') }}" class="btn btn-sm btn-success">Ajouter </a>
+          
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                 <th>Imatriculation</th>
+                <th>Date création </th>
+                <th>Coleur</th>
+                <th>Marque</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for car in cars %}
+            <tr>
+                <td>{{car.name }}</td>
+                <td>{{car.immatriculation}}</td>
+                <td>{{car.createdAt|date('Y') }}</td>
+                <td>{{car.color}}</td>
+                <td>{{car.brand.name}}</td>
+                <td>
+                    <a href="" class="btn btn-sm btn-success">Détails</a>
+                    <a href="" class="btn btn-sm btn-danger">Supprimer</a>
+                </td>
+            </tr>
+       {% endfor %}
+        </tbody>
+    </table>
+	</div>
+   
+{% endblock %}
